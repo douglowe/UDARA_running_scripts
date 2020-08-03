@@ -19,8 +19,8 @@ TEMPLATE=${DATA_ROOT}run_directory_template/
 #EXEC_DIR="${DATA_ROOT}exec/test_v3.8.1_code_new_CRI_VBS_controls_Mar2019/"
 EXEC_DIR="${DATA_ROOT}exec_files/test_v3.8.1_code_new_CRI_VBS_July2020_no_OH_flexi_oxidation_ISOPRENE_APINENE_BPINENE_x5/"
 BDY_DIR=${DATA_ROOT}input_files/mercator_15km/campaign_inputs_sst_from_skintemp_with_macc_boundaries/
-BIO_DIR=${DATA_ROOT}input_files/biogenic_emissions/
-BBURN_DIR=${DATA_ROOT}input_files/biomassburning_emissions/
+BIO_DIR=${DATA_ROOT}input_files/mercator_15km/biogenic_emissions/
+BBURN_DIR=${DATA_ROOT}input_files/mercator_15km/biomassburning_emissions/
 
 ARVAR_DIR=${DATA_ROOT}namelists/
 ARVAR_FILE=add_remove_var.extra_aero_rad.txt
