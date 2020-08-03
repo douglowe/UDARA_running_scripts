@@ -6,22 +6,21 @@
 #
 
 # select global settings file, and load it
-GLOBAL_SETTINGS_FILE=/work/n02/n02/lowe/PROMOTE/running_scripts_test_2domains/local_settings.txt
+GLOBAL_SETTINGS_FILE=/work/n02/n02/lowe/UDARA/UDARA_running_scripts/Setup_Scripts/local_settings.txt
 
 source $GLOBAL_SETTINGS_FILE
 
 
-SCENARIOS=( 'run_WRF_test_june_2nd_domain_test_edge_smoothing' )
+SCENARIOS=( 'may2010' 'may2015' 'sept2010' 'sept2015' )
 
-#WORK_ROOT=/work/n02/n02/lowe/PROMOTE/
 
-#SCRIPT_ROOT=/work/n02/n02/lowe/PROMOTE/running_scripts/
-
-time_settings="time_prototype_may_start.txt"
+time_settings_tail="_start.txt"
 
 for scen in ${SCENARIOS[@]}; do
 
 	echo "(re)setting time period specific details for scenario: "${scen}
+
+	time_settings=${scen}${time_settings_tail}
 
 	work_dir=${WORK_ROOT}${scen}
 

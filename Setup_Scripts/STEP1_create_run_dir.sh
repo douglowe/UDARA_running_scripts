@@ -9,9 +9,9 @@
 
 ## read in run information
 
-if [ "$1" = "" ] || [ "$2" = "" ] ; then
+if [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ] ; then
 	echo "This script sets up running directories for PROMOTE."
-    echo "usage: STEP1_create_run_dir.sh [global settings file] [new directory name]"
+    echo "usage: STEP1_create_run_dir.sh [global settings file] [new directory name] [scen name]"
     exit
 fi
 
@@ -62,12 +62,19 @@ ln -sf ${EXEC_DIR}*.exe .
 # link to add_remove_var
 ln -sf ${ARVAR_DIR}${ARVAR_FILE} add_remove_var.txt
 
-# link to the lowinput and fdda inputs (as these are generic to all scenarios)
-ln -sf ${BDY_DIR}wrflowinp_d0* .
-ln -sf ${BDY_DIR}wrffdda_d0* .
+# link to the scenario specific running directories
+ln -sf ${BDY_DIR}$3/wrflowinp_d0* .
+ln -sf ${BDY_DIR}$3/wrffdda_d0* .
+ln -sf ${BDY_DIR}$3/wrfinput* .
+ln -sf ${BDY_DIR}$3/wrfbdy_d01 .
+
 
 # link to the biogenic emission files (as these should be for the standard start date)
-ln -sf ${BIO_DIR}wrfbiochemi_d0* .
+ln -sf ${BIO_DIR}$3/wrfbiochemi_d0* .
 
 # link to the biomass burning emission files (for the whole simulation period)
-ln -sf ${BBURN_DIR}wrffirechemi_d0* .
+ln -sf ${BBURN_DIR}$3/wrffirechemi_d0* .
+
+
+# copy across namelist template
+cp ${NAME_DIR}${NAMEFILE} namelist.input.chem_template
