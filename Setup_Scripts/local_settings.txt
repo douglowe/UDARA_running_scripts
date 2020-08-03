@@ -3,7 +3,7 @@
 DATA_ROOT=/work/n02/n02/lowe/UDARA/
 SCRIPT_ROOT=/work/n02/n02/lowe/UDARA/UDARA_running_scripts/Setup_Scripts/
 
-
+WORK_ROOT=DATA_ROOT
 
 ## Post-Processing Information
 
