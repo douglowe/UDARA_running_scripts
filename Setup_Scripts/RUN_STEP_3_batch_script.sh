@@ -22,7 +22,9 @@ for scen in ${SCENARIOS[@]}; do
 
 	time_settings=${scen}${time_settings_tail}
 
-	work_dir=${WORK_ROOT}${scen}
+	scen_dir=run_15km_dom_wrf_${scen}
+
+	work_dir=${WORK_ROOT}${scen_dir}
 
 	${SCRIPT_ROOT}STEP3_timeperiod_setup.sh ${GLOBAL_SETTINGS_FILE} ${work_dir} ${time_settings}
 
