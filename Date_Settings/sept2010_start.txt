@@ -4,15 +4,15 @@
 
 # year / month to use for emissions
 EMISS_YEAR="2010"
-EMISS_MONTH="04"
+EMISS_MONTH="08"
 
 # year / month / day start and end times
 ST_YEAR="2010"
-ST_MONTH="04"
+ST_MONTH="08"
 ST_DAY="25"
 
 END_YEAR="2010"
-END_MONTH="05"
+END_MONTH="09"
 END_DAY="01"
 
 # define if this leg is an initial leg, or a restart leg
