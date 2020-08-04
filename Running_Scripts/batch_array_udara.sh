@@ -1,10 +1,10 @@
 #!/bin/bash --login
 
-#PBS -J 1-4
-#PBS -l select=9
-#PBS -l walltime=24:00:00
+#PBS -t 1-4
+#PBS -l select=14
+#PBS -l walltime=06:00:00
 #PBS -A n02-weat
-#PBS -N promote-batch
+#PBS -N udara-batch
 
 #
 #  script for running WRF, and gathering the outputs that we require
@@ -28,8 +28,8 @@ SCENARIOS=( 'run_15km_dom_wrf_may2010' 'run_15km_dom_wrf_may2015' \
 #SCEN_NUM=1 #${#SCENARIOS[@]}
 # see below for $scen - replaces $SCEN_STRING
 
-JOB_CORES='196'
-NODE_CORES='22'
+JOB_CORES='324'
+NODE_CORES='24'
 
 FINISHED=0
 
