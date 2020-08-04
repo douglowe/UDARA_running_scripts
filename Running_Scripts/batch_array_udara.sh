@@ -17,7 +17,7 @@
 
 cd $PBS_O_WORKDIR
 
-JOBID=(($PBS_ARRAY_INDEX-1))
+JOBID=$(($PBS_ARRAY_INDEX-1))
 
 #### Constants
 
@@ -112,8 +112,17 @@ while [[ $FINISHED -ne $SCEN_NUM ]]; do
 			-e "s|%%SCEN%%|${scen}}|g" \
 			gather_outputs_template.sh > gather_outputs_${scen}_${curr_year}_${curr_month}_${curr_day}.sh
 
-		# submit it
-		qsub gather_outputs_${scen}_${curr_year}_${curr_month}_${curr_day}.sh
+		# try to submit the script, if this fails then wait 5 minutes before trying again
+		SUBMITTED=0
+		while [[ $SUBMITTED -eq 0 ]]; do
+			JOBRESULT=$(qsub gather_outputs_${scen}_${curr_year}_${curr_month}_${curr_day}.sh || echo "error")
+			if [[ $JOBRESULT == "error" ]]; then
+				echo "serial processing script didn't submit, waiting for space in the queue"
+				sleep 300
+			else
+				SUBMITTED=1
+			fi
+		done
 		
 		# increment the dates that we are looking for next
 		increment_dates
