@@ -1,6 +1,6 @@
 #!/bin/bash --login
 
-#PBS -l select=serial=true:ncpus=3
+#PBS -l select=serial=true:ncpus=1
 #PBS -l walltime=12:00:00
 #PBS -A n02-weat
 #PBS -N udara-data-%%SCENNUM%%
@@ -41,7 +41,7 @@ HOUR_STRING='hour=(/"*"/)'
 INDIR_STRING="input_root_directory=\"${WORK_ROOT}\""
 OUTDIR_STRING="output_root_directory=\"${OUTPUT_ROOT}\""
 
-DOMAINS=( 'd01' 'd02' 'd03' )
+DOMAINS=( 'd01' )
 DOM_NUM=${#DOMAINS[@]}
 
 SCEN_STRING="scenario=\"${SCENARIO}\""
@@ -121,7 +121,9 @@ fi
 
 # now delete the old data files!!!!!
 cd ${WORK_ROOT}$SCENARIO
-	rm wrfout_*_${YEAR}-${MONTH}-${DAY}_*
+	echo "would have removed files:"
+	ls wrfout_*_${YEAR}-${MONTH}-${DAY}_*
+	#rm wrfout_*_${YEAR}-${MONTH}-${DAY}_*
 cd -
 
 
