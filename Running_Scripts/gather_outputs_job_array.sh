@@ -1,6 +1,7 @@
 #!/bin/bash --login
 
-#PBS -t 1-4
+#PBS -J 1-4
+#PBS -r n
 #PBS -l select=serial=true:ncpus=1
 #PBS -l walltime=24:00:00
 #PBS -A n02-weat

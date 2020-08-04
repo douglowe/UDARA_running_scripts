@@ -1,6 +1,7 @@
 #!/bin/bash --login
 
-#PBS -t 1-4
+#PBS -J 1-4
+#PBS -r n
 #PBS -l select=14
 #PBS -l walltime=06:00:00
 #PBS -A n02-weat
