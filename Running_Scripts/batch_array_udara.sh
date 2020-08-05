@@ -53,6 +53,7 @@ increment_dates () {
 
 ## set the scenario working directory
 scen=${SCENARIOS[$JOBID]}
+SCEN_NUM=1
 
 # start all model runs (running as a background jobs)
 cd ${WORK_ROOT}$scen
@@ -65,6 +66,13 @@ curr_year=$( grep start_year namelist.input | sed -n "s/^.*=\s*\([0-9]*\).*$/\1/
 curr_month=$( grep start_month namelist.input | sed -n "s/^.*=\s*\([0-9]*\).*$/\1/p" )
 curr_day=$( grep start_day namelist.input | sed -n "s/^.*=\s*\([0-9]*\).*$/\1/p" )
 
+# get the end dates for the run
+end_year=$( grep end_year namelist.input | sed -n "s/^.*=\s*\([0-9]*\).*$/\1/p" )
+end_month=$( grep end_month namelist.input | sed -n "s/^.*=\s*\([0-9]*\).*$/\1/p" )
+end_day=$( grep end_day namelist.input | sed -n "s/^.*=\s*\([0-9]*\).*$/\1/p" )
+
+
+
 determine_next_date
 
 echo "starting year, month, day are: "$curr_year" "$curr_month" "$curr_day
@@ -73,8 +81,9 @@ echo "next year, month, day are: "$next_year" "$next_month" "$next_day
 
 while [[ $FINISHED -ne $SCEN_NUM ]]; do
 	# wait for some model progress
-		
-	sleep 300
+	
+	echo "starting step"		
+	sleep 120
 
 	FINISHED=0
 	NEXT_OUTPUT=0
@@ -84,17 +93,23 @@ while [[ $FINISHED -ne $SCEN_NUM ]]; do
 	# tally up finished & next output counts
 		
 	RSL_TAIL=$( tail -1 rsl.error.0000 2>&1 )
-	# check for successful completion
-	if [[ $RSL_TAIL == *"SUCCESS"* ]]; then
+	# check for successful completion (and that we're at the end of the days that need processing
+	if [[ $RSL_TAIL == *"SUCCESS"* && 10#$next_year -eq 10#$end_year && 10#$next_month -eq 10#$end_month && 10#$next_day -eq 10#$end_day ]]; then
 		let FINISHED+=1
 	fi
 	
 	# list wrfout files that have been written, select last one, and record the day
-	model_day=$( grep "Writing wrfout" rsl.error.0000 | tail -1 | sed -n "s/^.*-\([0-9]*\)_.*$/\1/p" )
-	
-	# check to see if this is the next day
-	if [[ $next_day == $model_day ]]; then
+	write_string=$( grep "Writing wrfout" rsl.error.0000 | tail -1 )
+	model_day=$( sed -n "s/^.*-\([0-9]*\)_.*$/\1/p" <<<"$write_string" )
+	model_month=$( sed -n "s/^.*-\([0-9]*\)-.*$/\1/p" <<<"$write_string" )
+	model_year=$( sed -n "s/^.*_\([0-9]*\)-.*$/\1/p" <<<"$write_string" )
+
+	echo "model year, month, day are: "$model_year" "$model_month" "$model_day
+
+	# check to see if this is the next day (or past it)
+	if [[ 10#$model_day -ge 10#$next_day && 10#$model_month -ge 10#$next_month && 10#$model_year -ge 10#$next_year ]]; then
 		let NEXT_OUTPUT+=1
+		echo "we're at (or past) the next day"
 	fi
 		
 
@@ -116,9 +131,10 @@ while [[ $FINISHED -ne $SCEN_NUM ]]; do
 		SUBMITTED=0
 		while [[ $SUBMITTED -eq 0 ]]; do
 			JOBRESULT=$(qsub gather_outputs_${scen}_${curr_year}_${curr_month}_${curr_day}.sh || echo "error")
+			echo "submitting to serial job queue"
 			if [[ $JOBRESULT == "error" ]]; then
 				echo "serial processing script didn't submit, waiting for space in the queue"
-				sleep 300
+				sleep 120
 			else
 				SUBMITTED=1
 			fi
