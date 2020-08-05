@@ -25,6 +25,7 @@ WORK_ROOT=/work/n02/n02/lowe/UDARA/
 
 OUTPUT_ROOT=/work/n02/n02/lowe/UDARA/UDARA_data_outputs/
 
+export WRF_NCL_ROOT=$SCRIPT_DIR
 
 SCENARIO=%%SCEN%%
 

@@ -23,7 +23,7 @@
 
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/wrf/WRFUserARW.ncl"
-load "./data_extraction_library.ncl"
+load "$WRF_NCL_ROOT/data_extraction_library.ncl"
 
 begin
 
@@ -86,7 +86,6 @@ end if
 ;       between each model output to derive the hourly rain fall.
 
 
-domain = "d03"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; variable settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

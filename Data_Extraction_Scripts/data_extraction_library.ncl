@@ -9,7 +9,7 @@
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/wrf/WRFUserARW.ncl"
 
-load "./library/variable_loading_library.ncl"
+load "$WRF_NCL_ROOT/library/variable_loading_library.ncl"
 
 begin
 
