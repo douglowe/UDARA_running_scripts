@@ -109,7 +109,7 @@ while [[ $FINISHED -ne $SCEN_NUM ]]; do
 			-e "s|%%YEAR%%|${curr_year}|g" \
 			-e "s|%%MONTH%%|${curr_month}|g" \
 			-e "s|%%DAY%%|${curr_day}|g" \
-			-e "s|%%SCEN%%|${scen}}|g" \
+			-e "s|%%SCEN%%|${scen}|g" \
 			gather_outputs_template.sh > gather_outputs_${scen}_${curr_year}_${curr_month}_${curr_day}.sh
 
 		# try to submit the script, if this fails then wait 5 minutes before trying again
