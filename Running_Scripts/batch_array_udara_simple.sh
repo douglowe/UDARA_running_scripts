@@ -3,7 +3,7 @@
 #PBS -J 1-4
 #PBS -r y
 #PBS -l select=14
-#PBS -l walltime=06:00:00
+#PBS -l walltime=00:30:00
 #PBS -A n02-weat
 #PBS -N udara-batch
 
@@ -17,7 +17,7 @@
 
 cd $PBS_O_WORKDIR
 
-JOBID=(($PBS_ARRAY_INDEX-1))
+JOBID=$(($PBS_ARRAY_INDEX-1))
 
 #### Constants
 

@@ -16,7 +16,7 @@
 
 cd $PBS_O_WORKDIR
 
-JOBID=(($PBS_ARRAY_INDEX-1))
+JOBID=$(($PBS_ARRAY_INDEX-1))
 
 
 # load miniconda & activate NCL virtual environment
